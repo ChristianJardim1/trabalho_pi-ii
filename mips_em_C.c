@@ -7,14 +7,7 @@
 #define INSTRUCAO 16 //instrução com 16 bits
 
 typedef struct {
-    int zero;
-    int um;
-    int dois;
-    int tres;
-    int quatro;
-    int cinco;
-    int seis;
-    int sete;
+    int regis[8];
 }Reg;
 
 typedef struct {
@@ -217,14 +210,9 @@ int menu(op){
 }
 
 void printReg(Reg reg) {
-    printf("%s\n",reg.zero);
-    printf("%s\n",reg.um);
-    printf("%s\n",reg.dois);
-    printf("%s\n",reg.tres);
-    printf("%s\n",reg.quatro);
-    printf("%s\n",reg.cinco);
-    printf("%s\n",reg.seis);
-    printf("%s\n",reg.sete);
+  for(int i=0; i<8; i++){  
+		printf("%d\n",reg.regis[i]);
+	}
 }
 
 int executaInstrucao(char **pmen, int pc, Deco dec) {
