@@ -6,10 +6,8 @@
 #define MEMDADOS "memdados.dat" //arquivo memoria de dados
 #define INSTRUCAO 16 //instrução com 16 bits
 
+typedef struct {
 
-typedef struct registradores {
-	char reg[8][9];
-}regis;
 
 //Funções
 int menu(int op);
