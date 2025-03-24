@@ -7,7 +7,15 @@
 #define INSTRUCAO 16 //instrução com 16 bits
 
 typedef struct {
-
+    char zero[9];
+    char um[9];
+    char dois[9];
+    char tres[9];
+    char quatro[9];
+    char cinco[9];
+    char seis[9];
+    char sete[9];
+}Reg;
 
 //Funções
 int menu(int op);
@@ -87,7 +95,6 @@ do {
 		break;
 
 	case 4:
-	scanf("%s",reg.zero);
         printreg(reg);
         break;
 
@@ -116,14 +123,11 @@ do {
 		break;
 
 	case 11:
+		liberaMem(meminst);
 		return 0;
 		break;
 	}
     } while(op != 11);
-
-    liberaMem(meminst);
-
-    return 0;
 }
  
 int menu(int op) {
@@ -225,8 +229,13 @@ void printMemory(char **pmem, int n)
     }
 }
 
-void printreg(regis reg) {
-	for(int i=0; i>8; i++){
-		printf("%s",reg.reg[0]);
-	}
+void printReg(Reg reg) {
+    printf("%s\n",reg.zero);
+    printf("%s\n",reg.um);
+    printf("%s\n",reg.dois);
+    printf("%s\n",reg.tres);
+    printf("%s\n",reg.quatro);
+    printf("%s\n",reg.cinco);
+    printf("%s\n",reg.seis);
+    printf("%s\n",reg.sete);
 }
