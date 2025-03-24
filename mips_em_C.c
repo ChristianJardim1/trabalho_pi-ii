@@ -7,7 +7,7 @@
 #define INSTRUCAO 16 //instrução com 16 bits
 
 //Funções
-int menu(op);
+int menu(int op);
 int contarlinhas(FILE* arq);
 char **alocMemInstr(int n);
 void liberaMem(char **pmem);
@@ -134,8 +134,7 @@ do {
     return 0;
 }
  
-int menu(op) {
-	int op;
+int menu(int op) {
 	printf("\n *** MENU *** \n");
 	printf("1 - Carregar memoria de instrucoes\n");
 	printf("2 - Carregar memoria de dados\n");
