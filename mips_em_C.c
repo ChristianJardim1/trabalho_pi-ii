@@ -8,14 +8,7 @@
 
 
 typedef struct registradores {
-	char zero[9],
-	um[9],
-	dois[9],
-	tres[9],
-	quatro[9],
-        cinco[9],
-        seis[9],
-        sete[9];
+	char reg[8][9];
 }regis;
 
 //Funções
@@ -235,12 +228,7 @@ void printMemory(char **pmem, int n)
 }
 
 void printreg(regis reg) {
-	printf("%s",reg.zero);
-	printf("%s",reg.um);
-	printf("%s",reg.dois);
-	printf("%s",reg.tres);
-	printf("%s",reg.quatro);
-	printf("%s",reg.cinco);
-	printf("%s",reg.seis);
-	printf("%s",reg.sete);
+	for(int i=0; i>8; i++){
+		printf("%s",reg.zero);
+	}
 }
