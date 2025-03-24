@@ -6,14 +6,6 @@
 #define MEMDADOS "memdados.dat" //arquivo memoria de dados
 #define INSTRUCAO 16 //instrução com 16 bits
 
-//Funções
-int menu(int op);
-int contarlinhas(FILE* arq);
-char **alocMemInstr(int n);
-void liberaMem(char **pmem);
-void carregaMemInst(FILE* arq, char **pmem, int n);
-void printMemory(char **pmem, int n);
-void printreg(regis reg);
 
 typedef struct registradores {
 	char zero[9],
@@ -25,6 +17,15 @@ typedef struct registradores {
         seis[9],
         sete[9];
 }regis;
+
+//Funções
+int menu(int op);
+int contarlinhas(FILE* arq);
+char **alocMemInstr(int n);
+void liberaMem(char **pmem);
+void carregaMemInst(FILE* arq, char **pmem, int n);
+void printMemory(char **pmem, int n);
+void printreg(regis reg);
 
 struct decodificacao
 {
