@@ -28,9 +28,8 @@ void carregaMemInst(const char *arquivo, char **pmem, int n);
 void printMemory(char **pmem, int n);
 void printReg(Reg reg);
 int executaInstrucao(char **pmem, int pc, Deco dec);
-int menu(op);
-
-
+int menu(int op);
+
 int main()
 {
     Reg reg;
@@ -188,7 +187,7 @@ void printMemory(char **pmem, int n)
     }
 }
 
-int menu(op){
+int menu(int op){
 	printf("\n *** MENU *** \n");
 	printf("1 - Carregar memoria de instrucoes\n");
 	printf("2 - Carregar memoria de dados\n");
