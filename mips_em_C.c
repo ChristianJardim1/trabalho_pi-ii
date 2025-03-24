@@ -100,14 +100,10 @@ do {
 		break;
 
 	case 11:
+		liberaMem(meminst);
 		return 0;
-		break;
-	}
-    } while(op != 11);
-
-    liberaMem(meminst);
-
-    return 0;
+		break;
+   } while(op != 11);
 }
 
 int contarlinhas(const char *arquivo)
