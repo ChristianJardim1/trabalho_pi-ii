@@ -211,11 +211,10 @@ void printReg(Reg reg) {
 	}
 }
 
-int executaInstrucao(char **pmen, int pc, Deco dec) {
-    for(int i=0; i<pc + 1; i++){
-        for(int j=0; j<4; j++){
-            dec.rs[j] = pmen[i][j];
-    }}
+int executaInstrucao(char **pmen, int pc, Deco dec) {
+		for(int j=0; j<4; j++){
+				dec.rs[j] = pmen[pc][j];
+    }
     printf("%s",dec.rs);
     pc++;
     return pc;
