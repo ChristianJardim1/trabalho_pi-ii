@@ -104,6 +104,7 @@ do {
 		return 0;
 		break;
    } while(op != 11);
+}while(op != 0);
 }
 
 int contarlinhas(const char *arquivo)
