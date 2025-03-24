@@ -17,33 +17,33 @@ typedef struct {
     char sete[9];
 }Reg;
 
-//Funções
-int menu(int op);
-int contarlinhas(FILE* arq);
-char **alocMemInstr(int n);
-void liberaMem(char **pmem);
-void carregaMemInst(FILE* arq, char **pmem, int n);
-void printMemory(char **pmem, int n);
-void printreg(regis reg);
-
-struct decodificacao
-{
+typedef struct {
     char opcode[4];
-    char rs[3];
+    char rs[4];
     char rt[3];
     char rd[3];
     char funct[3];
     char imm[6];
     char addr[7];
-};
+}Deco;
+
+//Funções
+int contarlinhas(const char *arquivo);
+char **alocMemInstr(int n);
+void liberaMem(char **pmem);
+void carregaMemInst(const char *arquivo, char **pmem, int n);
+void printMemory(char **pmem, int n);
+void printReg(Reg reg);
+int executaInstrucao(char **pmem, int pc, Deco dec);
+int menu(op);
+
 
 int main()
 {
-    FILE* arquivo;
-    struct decodificacao dec;
-    regis reg;
+    Reg reg;
+    Deco dec;
     char **meminst = NULL, instrucao[16];
-    int op, nlinhas, opcode;
+    int op, nlinhas;
 
 do {
 	op = menu(op);
@@ -58,44 +58,35 @@ do {
 	switch (op) 
     {
     case 1:
-        // abre o arquivo em modo leitura
-        arquivo = fopen (MEMINST, "r") ;
-        if (!arquivo)
-        {
-            perror ("Erro ao abrir arquivo") ;
-            exit (1) ;
-        }
-
-        nlinhas = contarlinhas(arquivo);
-        rewind(arquivo);
-
+        //conta número de linhas do arquivo lido
+        nlinhas = contarlinhas(MEMINST);
+        //aloca memoria para memoria de instruções
         meminst = alocMemInstr(nlinhas);
-        carregaMemInst(arquivo, meminst, nlinhas);
-
-        // Fecha o arquivo
-        fclose(arquivo);
+        //carrega memoria com os dados do arquivo lido
+        carregaMemInst(MEMINST, meminst, nlinhas);
 		break;
 	
     case 2:
-
-        //teste para decodificação
-        strcpy(instrucao, meminst[0]);
-        printf("%s", instrucao);
-        
-        opcode = strtol(strncpy(dec.opcode, instrucao, 4), NULL, 2);
-        printf("%d\n", opcode);
-
         printf("Em desenvolvimento.");
 		break;
 	
     case 3:
-        nlinhas = contarlinhas(arquivo);
+        //conta número de linhas do arquivo lido
+        nlinhas = contarlinhas(MEMINST);
         //imprime memória de instruções
         printMemory(meminst, nlinhas);
 		break;
 
 	case 4:
-        printreg(reg);
+	    scanf("%s",reg.zero);
+	    scanf("%s",reg.um);
+	    scanf("%s",reg.dois);
+	    scanf("%s",reg.tres);
+	    scanf("%s",reg.quatro);
+	    scanf("%s",reg.cinco);
+	    scanf("%s",reg.seis);
+	    scanf("%s",reg.sete);
+        printReg(reg);
         break;
 
 	case 5:
@@ -111,7 +102,8 @@ do {
 		break;
 
 	case 8:
-        printf("Em desenvolvimento.");
+        int pc = 0;
+        pc = executaInstrucao(meminst, pc, dec);
 		break;
 
 	case 9:
@@ -123,40 +115,25 @@ do {
 		break;
 
 	case 11:
-		liberaMem(meminst);
 		return 0;
 		break;
 	}
     } while(op != 11);
-}
- 
-int menu(int op) {
-	printf("\n *** MENU *** \n");
-	printf("1 - Carregar memoria de instrucoes\n");
-	printf("2 - Carregar memoria de dados\n");
-	printf("3 - Imprimir memorias\n");
-	printf("4 - Imprimir banco de registradores\n");
-	printf("5 - Imprimir todo o simulador\n");
-	printf("6 - Salvar .asm\n");
-	printf("7 - Salvar .dat\n");
-	printf("8 - Executar programa\n");
-	printf("9 - Executar instrucao\n");
-	printf("10 - Volta uma instrucao\n");
-	printf("11 - Sair\n\n");
-   	printf("Escolher opção: ");
-	scanf("%d",&op);
-	return op;
+
+    liberaMem(meminst);
+
+    return 0;
 }
 
-int contarlinhas(FILE* arq)
+int contarlinhas(const char *arquivo)
 {
     char c;
     int contador=0;
     // abre o arquivo em modo leitura
-    arq = fopen (MEMINST, "r") ;
+    FILE *arq = fopen (arquivo, "r");
     if (!arq)
     {
-        perror ("Erro ao abrir arquivo") ;
+        perror ("Erro ao abrir arquivo");
         exit (1) ;
     }
     // Percorre o arquivo e conta as quebras de linha
@@ -200,10 +177,10 @@ void liberaMem(char **pmem)
     free(pmem);
 }
 
-void carregaMemInst(FILE* arq, char **pmem, int n)
+void carregaMemInst(const char *arquivo, char **pmem, int n)
 {
     // abre o arquivo em modo leitura
-    arq = fopen (MEMINST, "r");
+    FILE *arq = fopen (arquivo, "r");
     if (!arq)
     {
         perror ("Erro ao abrir arquivo") ;
@@ -229,6 +206,24 @@ void printMemory(char **pmem, int n)
     }
 }
 
+int menu(op){
+	printf("\n *** MENU *** \n");
+	printf("1 - Carregar memoria de instrucoes\n");
+	printf("2 - Carregar memoria de dados\n");
+	printf("3 - Imprimir memorias\n");
+	printf("4 - Imprimir banco de registradores\n");
+	printf("5 - Imprimir todo o simulador\n");
+	printf("6 - Salvar .asm\n");
+	printf("7 - Salvar .dat\n");
+	printf("8 - Executar programa\n");
+	printf("9 - Executar instrucao\n");
+	printf("10 - Volta uma instrucao\n");
+	printf("11 - Sair\n\n");
+	printf("Escolher opção: ");
+	scanf("%d", &op);
+	return op;
+}
+
 void printReg(Reg reg) {
     printf("%s\n",reg.zero);
     printf("%s\n",reg.um);
@@ -238,4 +233,14 @@ void printReg(Reg reg) {
     printf("%s\n",reg.cinco);
     printf("%s\n",reg.seis);
     printf("%s\n",reg.sete);
+}
+
+int executaInstrucao(char **pmen, int pc, Deco dec) {
+    for(int i=0; i<pc + 1; i++){
+        for(int j=0; j<4; j++){
+            dec.rs[j] = pmen[i][j];
+    }}
+    printf("%s",dec.rs);
+    pc++;
+    return pc;
 }
