@@ -7,12 +7,24 @@
 #define INSTRUCAO 16 //instrução com 16 bits
 
 //Funções
-void menu();
+int menu(op);
 int contarlinhas(FILE* arq);
 char **alocMemInstr(int n);
 void liberaMem(char **pmem);
 void carregaMemInst(FILE* arq, char **pmem, int n);
 void printMemory(char **pmem, int n);
+void printreg(regis reg);
+
+typedef struct registradores {
+	char zero[9],
+	um[9],
+	dois[9],
+	tres[9],
+	quatro[9],
+        cinco[9],
+        seis[9],
+        sete[9];
+}regis;
 
 struct decodificacao
 {
@@ -29,12 +41,12 @@ int main()
 {
     FILE* arquivo;
     struct decodificacao dec;
+    regis reg;
     char **meminst = NULL, instrucao[16];
     int op, nlinhas, opcode;
 
 do {
-	menu();
-	scanf("%d", &op);
+	op = menu(op);
 
 	do {
 		if (op < 1 || op > 11) {
@@ -83,7 +95,8 @@ do {
 		break;
 
 	case 4:
-        printf("Em desenvolvimento.");
+	scanf("%s",reg.zero);
+        printreg(reg);
         break;
 
 	case 5:
@@ -121,7 +134,8 @@ do {
     return 0;
 }
  
-void menu() {
+int menu(op) {
+	int op;
 	printf("\n *** MENU *** \n");
 	printf("1 - Carregar memoria de instrucoes\n");
 	printf("2 - Carregar memoria de dados\n");
@@ -135,6 +149,8 @@ void menu() {
 	printf("10 - Volta uma instrucao\n");
 	printf("11 - Sair\n\n");
    	printf("Escolher opção: ");
+	scanf("%d",&op);
+	return op;
 }
 
 int contarlinhas(FILE* arq)
@@ -216,4 +232,15 @@ void printMemory(char **pmem, int n)
     {
         printf("%s", pmem[i]);
     }
+}
+
+void printreg(regis reg) {
+	printf("%s",reg.zero);
+	printf("%s",reg.um);
+	printf("%s",reg.dois);
+	printf("%s",reg.tres);
+	printf("%s",reg.quatro);
+	printf("%s",reg.cinco);
+	printf("%s",reg.seis);
+	printf("%s",reg.sete);
 }
