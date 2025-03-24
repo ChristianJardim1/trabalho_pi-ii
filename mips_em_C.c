@@ -229,6 +229,6 @@ void printMemory(char **pmem, int n)
 
 void printreg(regis reg) {
 	for(int i=0; i>8; i++){
-		printf("%s",reg.zero);
+		printf("%s",reg.reg[0]);
 	}
 }
