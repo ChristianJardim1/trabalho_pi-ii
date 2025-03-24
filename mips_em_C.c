@@ -7,14 +7,14 @@
 #define INSTRUCAO 16 //instrução com 16 bits
 
 typedef struct {
-    char zero[9];
-    char um[9];
-    char dois[9];
-    char tres[9];
-    char quatro[9];
-    char cinco[9];
-    char seis[9];
-    char sete[9];
+    int zero;
+    int um;
+    int dois;
+    int tres;
+    int quatro;
+    int cinco;
+    int seis;
+    int sete;
 }Reg;
 
 typedef struct {
@@ -77,15 +77,7 @@ do {
         printMemory(meminst, nlinhas);
 		break;
 
-	case 4:
-	    scanf("%s",reg.zero);
-	    scanf("%s",reg.um);
-	    scanf("%s",reg.dois);
-	    scanf("%s",reg.tres);
-	    scanf("%s",reg.quatro);
-	    scanf("%s",reg.cinco);
-	    scanf("%s",reg.seis);
-	    scanf("%s",reg.sete);
+	case 4:
         printReg(reg);
         break;
 
